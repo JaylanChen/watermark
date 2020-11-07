@@ -103,6 +103,9 @@ class Watermark {
     this.container = this.options.container || document.body;
     const MutationObserver = getMutationObserver();
 
+    window.removeEventListener('resize', this.render.bind(this));
+    window.addEventListener('resize', this.render.bind(this));
+
     this.mutationObserver?.disconnect();
 
     // 解决滚动区域无水印问题
@@ -190,6 +193,7 @@ class Watermark {
     this.watermarkParentDom?.remove();
     this.mutationObserver?.disconnect();
     this.mutationObserver = undefined;
+    window.removeEventListener('resize', this.render.bind(this));
   }
 }
 
